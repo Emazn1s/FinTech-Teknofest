@@ -1,0 +1,83 @@
+# Array'leri tanımlama
+nftA = {'volume': '2000', 'listed_ratio': '2', 'uniqueowner_ratio': '60', 'collection_age': '12'}
+nftB = {'volume': '2000', 'listed_ratio': '2', 'uniqueowner_ratio': '60', 'collection_age': '1'}
+nftC = {'volume': '2000', 'listed_ratio': '2', 'uniqueowner_ratio': '15', 'collection_age': '1'}
+nftD = {'volume': '2000', 'listed_ratio': '25', 'uniqueowner_ratio': '15', 'collection_age': '1'}
+nftE = {'volume': '500', 'listed_ratio': '25', 'uniqueowner_ratio': '15', 'collection_age': '1'}
+
+# Array'leri bir sözlükte toplama
+arrays = {'A': nftA, 'B': nftB, 'C': nftC, 'D': nftD, 'E': nftE}
+
+# Eşik değerleri belirleme
+threshold_volume = 1000
+threshold_listedratio = 10
+threshold_uniqueownerratio = 30
+threshold_collectionage = 6
+
+# Havuzlar
+pool_1 = []
+pool_2 = []
+pool_3 = []
+pool_4 = []
+pool_5 = []
+
+
+def find_array_in_pools(array_name):
+    if array_name in pool_1:
+        return 1
+    elif array_name in pool_2:
+        return 2
+    elif array_name in pool_3:
+        return 3
+    elif array_name in pool_4:
+        return 4
+    elif array_name in pool_5:
+        return 5
+    return None
+
+
+def assign_to_pool(array_name, selected_array):
+    reliability_score = 0
+    if int(selected_array['volume']) >= threshold_volume: reliability_score += 1
+    if int(selected_array['listed_ratio']) <= threshold_listedratio: reliability_score += 1
+    if int(selected_array['uniqueowner_ratio']) >= threshold_uniqueownerratio: reliability_score += 1
+    if int(selected_array['collection_age']) >= threshold_collectionage: reliability_score += 1
+
+    if reliability_score == 4:
+        pool_1.append(array_name)
+        return 1
+    elif reliability_score == 3:
+        pool_2.append(array_name)
+        return 2
+    elif reliability_score == 2:
+        pool_3.append(array_name)
+        return 3
+    elif reliability_score == 1:
+        pool_4.append(array_name)
+        return 4
+    else:
+        pool_5.append(array_name)
+        return 5
+
+
+while True:
+    # Kullanıcıdan bir array ismi alma
+    array_name = input("Lütfen bir array ismi girin (A, B, C, D, E) veya çıkmak için 'q' tuşuna basın: ").strip()
+
+    if array_name.lower() == 'q':
+        print("Program sonlandırıldı.")
+        break
+
+    # Girilen array isminin geçerli olup olmadığını kontrol etme
+    if array_name in arrays:
+        pool_number = find_array_in_pools(array_name)
+        if pool_number:
+            print(f"{array_name} {pool_number}. havuzda bulunuyor.")
+        else:
+            print(f"{array_name} hiçbir havuzda bulunamadı. Uygun havuza yerleştiriliyor.")
+            selected_array = arrays[array_name]
+            pool_number = assign_to_pool(array_name, selected_array)
+            print(f"{array_name} {pool_number}. havuza yerleştirildi.")
+    else:
+        print("Geçersiz array ismi girdiniz.")
+
