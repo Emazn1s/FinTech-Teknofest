@@ -21,6 +21,15 @@ pool_3 = []
 pool_4 = []
 pool_5 = []
 
+# Havuz isimleri
+pool_names = {
+    1: 'GÜVENİLİR (1. havuz)',
+    2: 'AZ GÜVENİLİR (2. havuz)',
+    3: 'RİSK İÇEREBİLİR (3. havuz)',
+    4: 'RİSKLİ (4. havuz)',
+    5: 'ÇOK RİSKLİ (5. havuz)'
+}
+
 
 def find_array_in_pools(array_name):
     if array_name in pool_1:
@@ -72,12 +81,13 @@ while True:
     if array_name in arrays:
         pool_number = find_array_in_pools(array_name)
         if pool_number:
-            print(f"{array_name} {pool_number}. havuzda bulunuyor.")
+            print(f"{array_name} {pool_names[pool_number]} içinde bulunuyor.")
         else:
             print(f"{array_name} hiçbir havuzda bulunamadı. Uygun havuza yerleştiriliyor.")
             selected_array = arrays[array_name]
             pool_number = assign_to_pool(array_name, selected_array)
-            print(f"{array_name} {pool_number}. havuza yerleştirildi.")
+            print(f"{array_name} {pool_names[pool_number]} içine yerleştirildi.")
     else:
         print("Geçersiz array ismi girdiniz.")
 
+print("Görüşmek üzere kral ")
