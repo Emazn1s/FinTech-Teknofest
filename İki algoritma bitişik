@@ -90,4 +90,4 @@ while True:
     else:
         print("Geçersiz array ismi girdiniz.")
 
-print("Görüşmek üzere kral ")
+print("Görüşmek üzere, adamsın")
